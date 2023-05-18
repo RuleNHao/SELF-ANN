@@ -6,6 +6,13 @@
 
 ---
 
+## Tool
+There is an open-source tool[^1] based on **SELF-ANN**.
+
+Feel free to [click here](http://149.28.154.104:8000/) to try to make a prediction for the sporadic E layer.
+
+Contact email `rulenhao@mail.ustc.edu.cn` if there are any problems with the page.
+
 ## File description
 | File      | Description |
 | :---        |    :----  |
@@ -14,13 +21,6 @@
 | model.py | Define the model structure. |
 | train.py | Execution of training models. |
 | torchrun_main.py | Main program, using DDP and multi-GPU parallel training.|
-
-## Tool
-There is an open-source tool[^1] based on **SELF-ANN**.
-
-Feel free to [click here](http://149.28.154.104:8000/) to try to make a prediction for the sporadic E layer.
-
-Contact email `rulenhao@mail.ustc.edu.cn` if there are any problems with the page.
 
 ## Data availability
 The reanalysis data used for part of the input in this study are available from ECMWF Reanalysis v5 (ERA5).  
