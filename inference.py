@@ -160,15 +160,15 @@ class Tester():
     def _init_train_method(self):
         
         # 同步化BN层
-        BN_tag = False
-        for mm in self.model.modules():
-            if isinstance(mm, nn.BatchNorm2d):
-                BN_tag = True
-                break
-            pass
-        if BN_tag:
-            self.model = nn.SyncBatchNorm.convert_sync_batchnorm(self.model)
-            pass
+#         BN_tag = False
+#         for mm in self.model.modules():
+#             if isinstance(mm, nn.BatchNorm2d):
+#                 BN_tag = True
+#                 break
+#             pass
+#         if BN_tag:
+#             self.model = nn.SyncBatchNorm.convert_sync_batchnorm(self.model)
+#             pass
         
         # 使用DDP方案
         self.model = self.model.to(self.gpu_id)
