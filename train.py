@@ -100,11 +100,11 @@ class PrepareDataLoader():
         
         # 给出分割训练/验证的方法
         train_ds, valid_ds = dataset.split_to_train_valid(data_set, split_method=self.split_method)
-        train_dl = DataLoader(data_set, batch_size=self.batch_size,
+        train_dl = DataLoader(train_ds, batch_size=self.batch_size,
                               num_workers=self.num_workers, shuffle=False, 
                               pin_memory=True, sampler=DistributedSampler(train_ds))
 
-        valid_dl = DataLoader(data_set, batch_size=self.batch_size,
+        valid_dl = DataLoader(valid_ds, batch_size=self.batch_size,
                               num_workers=self.num_workers, shuffle=False, 
                               pin_memory=True, sampler=DistributedSampler(valid_ds))
         
@@ -143,7 +143,7 @@ class Trainer():
         
         self.args_config = args_config
         self._init_train_method()
-        self.log = pd.DataFrame(columns=["time", "train_loss", "valid_loss"], 
+        self.log = pd.DataFrame(columns=["time", "train_loss", "valid_loss", "valid_correlation"], 
                                 index=range(self.max_epoch))
         pass
     
@@ -203,7 +203,7 @@ class Trainer():
         # 给出lr调度方案
         if self.lr_scheduler_name=="StepLR":
             self.lr_scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, 
-                                                                step_size=10, gamma=0.25)
+                                                                step_size=50, gamma=0.5)
             pass
         elif self.lr_scheduler_name=="CosineAnnealingLR":
             self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.optimizer,
@@ -257,17 +257,24 @@ class Trainer():
         """
         self.model.eval()
         valid_loss = []
+        valid_cor = []
         for source, targets in self.valid_dl:
             source = source.to(self.gpu_id)
             targets = targets.to(self.gpu_id)
             output = self.model(source)
-            loss = self.loss_func(output, targets)
+            loss = self.loss_func(output, targets).item()
+            # 给出pearson corrcoef
+            correlation = torch.corrcoef(torch.concat([output.detach().cpu().T, targets.detach().cpu().T]))[0,1]
             valid_loss.append(loss)
+            valid_cor.append(correlation)
             pass
         valid_loss = torch.stack(valid_loss, axis=0)
+        valid_cor = torch.stack(valid_cor, axis=0)
         dist.all_reduce(valid_loss, dist.ReduceOp.AVG)
+        dist.all_reduce(valid_cor, dist.ReduceOp.AVG)
         if self.gpu_id == 0:
             self.log.loc[epoch, "valid_loss"] = torch.mean(valid_loss).to("cpu").detach().numpy()
+            self.log.loc[epoch, "valid_correlation"] = torch.mean(valid_cor).to("cpu").detach().numpy()
             pass
         return torch.mean(valid_loss)
     
@@ -293,6 +300,9 @@ class Trainer():
                 if ((self.max_epoch - epoch) >= 0) & ((self.max_epoch - epoch) <= 20):
                     self._save_checkpoint(epoch)
                     pass
+                # if epoch >= 150:
+                #     self._save_checkpoint(epoch)
+                #     pass
                 pass
             pass
         return
