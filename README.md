@@ -11,6 +11,8 @@ There is an open-source tool[^1] based on **SELF-ANN**.
 
 Feel free to [click here](http://149.28.154.104:8000/) to try to make a prediction for the sporadic E layer.
 
+The efficacy of the tool spans a period from approximately **2002** to **2025**.
+
 Contact email `rulenhao@mail.ustc.edu.cn` if there are any problems with the page.
 
 ## File description
