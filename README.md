@@ -2,7 +2,7 @@
 
 ---
 
-![](./images/ionosphere_figure_small.jpg "SELF-ANN")
+![](./images/ionosphere_figure_small.png "SELF-ANN")
 
 ---
 
