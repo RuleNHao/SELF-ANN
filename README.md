@@ -26,6 +26,7 @@ Contact email `rulenhao@mail.ustc.edu.cn` if there are any problems with the pag
 | model.py | Define the model structure. |
 | train.py | Execution of training models. |
 | torchrun_main.py | Main program, using DDP and multi-GPU parallel training.|
+| ./imgaes | The source code of latest version and other utility functions. |
 
 ## Data availability
 The reanalysis data used for part of the input in this study are available from ECMWF Reanalysis v5 (ERA5).  
