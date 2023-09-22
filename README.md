@@ -4,9 +4,6 @@
 
 ![](./images/ionosphere_figure_small.png "SELF-ANN")
 
----
-
----
 
 ![](./images/model.jpg "SELF-ANN")
 
