@@ -2,6 +2,12 @@
 
 ---
 
+![](./images/ionosphere_figure_small.jpg "SELF-ANN")
+
+---
+
+---
+
 ![](./images/model.jpg "SELF-ANN")
 
 ---
