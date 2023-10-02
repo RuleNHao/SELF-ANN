@@ -262,7 +262,7 @@ class Trainer():
             source = source.to(self.gpu_id)
             targets = targets.to(self.gpu_id)
             output = self.model(source)
-            loss = self.loss_func(output, targets).item()
+            loss = self.loss_func(output, targets)
             # 给出pearson corrcoef
             correlation = torch.corrcoef(torch.concat([output.detach().cpu().T, targets.detach().cpu().T]))[0,1]
             valid_loss.append(loss)
