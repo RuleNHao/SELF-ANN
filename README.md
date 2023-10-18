@@ -1,5 +1,5 @@
 # SELF-ANN: Sporadic E Layer Forecast using Artificial Neural Networks
-
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10016010.svg)](https://doi.org/10.5281/zenodo.10016010)
 ---
 
 ![](./images/ionosphere_figure_small.png "SELF-ANN")
