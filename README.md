@@ -1,4 +1,6 @@
 # SELF-ANN: Sporadic E Layer Forecast using Artificial Neural Networks
+[Ionospheric irregularity reconstruction using multisource data fusion via deep learning](https://acp.copernicus.org/articles/23/13413/2023/)
+---
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10016010.svg)](https://doi.org/10.5281/zenodo.10016010)
 ---
 
